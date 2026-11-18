@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use PhpParser\Node\Expr\Cast;
+use App\Models\CatatanDokumen;
 
 class Invoice extends Model
 {
@@ -43,6 +44,6 @@ class Invoice extends Model
 
     public function catatanDokumen(): HasOne
     {
-        return $this->hasOne(CatatanDokumen::class);
+        return $this->hasOne(CatatanDokumen::class, 'invoice_id');
     }
 }

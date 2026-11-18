@@ -100,7 +100,7 @@
                                     {{ $inv->jatuh_tempo_sap->translatedFormat('d M Y') }}
                                 </td>
                                 <td class="px-4 py-3">
-                                    {{ $b['vendor']->nama }}
+                                    <a href="{{ route('jadwal-bayar.show', $inv) }}" class="text-blue-700 hover:underline">{{ $b['vendor']->nama }}</a>
                                     <div class="text-xs text-gray-500">{{ $inv->mvp->no_mvp }}</div>
                                 </td>
                                 <td class="px-4 py-3">{{ $b['vendor']->bank_penerima }}</td>

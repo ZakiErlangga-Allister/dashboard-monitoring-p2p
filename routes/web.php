@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JadwalBayarController;
+use App\Http\Controllers\CatatanDokumenController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,8 +20,14 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware(['auth', 'peran:staf_keuangan,admin'])->get('/uji-keuangan', fn () => 'Halaman Keuangan');
 
-Route::middleware(['auth', 'peran:staf_keuangan, admin'])->group(function () {
-    route::get('/jadwal-bayar', [JadwalBayarController::class, 'index'])->name('jadwal-bayar.index');
+Route::middleware(['auth', 'peran:staf_keuangan,admin'])->group(function () {
+    Route::get('/jadwal-bayar', [JadwalBayarController::class, 'index'])->name('jadwal-bayar.index');
+    Route::get('/jadwal-bayar/{invoice}', [CatatanDokumenController::class, 'show'])->name('jadwal-bayar.show');
+});
+
+Route::middleware(['auth', 'peran:staf_keuangan'])->group(function () {
+    Route::put('/jadwal-bayar/{invoice}/catatan', [CatatanDokumenController::class, 'update'])
+        ->name('jadwal-bayar.catatan.update');
 });
 });
 

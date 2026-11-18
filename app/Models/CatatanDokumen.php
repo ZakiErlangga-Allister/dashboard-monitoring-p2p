@@ -40,6 +40,6 @@ class CatatanDokumen extends Model
 
     public function riwayat(): HasMany
     {
-        return $this->hasMany(RiwayatCatatan::class);
+        return $this->hasMany(RiwayatCatatan::class, 'catatan_dokumen_id');
     }
 }
