@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\JadwalBayarController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,6 +18,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::middleware(['auth', 'peran:staf_keuangan,admin'])->get('/uji-keuangan', fn () => 'Halaman Keuangan');
+
+Route::middleware(['auth', 'peran:staf_keuangan, admin'])->group(function () {
+    route::get('/jadwal-bayar', [JadwalBayarController::class, 'index'])->name('jadwal-bayar.index');
+});
 });
 
 require __DIR__.'/auth.php';

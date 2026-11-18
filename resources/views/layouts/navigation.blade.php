@@ -15,6 +15,11 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @if (in_array(auth()->user()->peran, ['staf_keuangan', 'admin']))
+    <x-nav-link :href="route('jadwal-bayar.index')" :active="request()->routeIs('jadwal-bayar.*')">
+        Jadwal bayar
+    </x-nav-link>
+@endif
                 </div>
             </div>
 
