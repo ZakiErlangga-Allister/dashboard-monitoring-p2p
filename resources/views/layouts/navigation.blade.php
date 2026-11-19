@@ -15,6 +15,9 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('lacak-status.index')" :active="request()->routeIs('lacak-status.*')">
+    Lacak status PO
+</x-nav-link>
                     @if (in_array(auth()->user()->peran, ['staf_keuangan', 'admin']))
     <x-nav-link :href="route('jadwal-bayar.index')" :active="request()->routeIs('jadwal-bayar.*')">
         Jadwal bayar

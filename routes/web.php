@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\JadwalBayarController;
 use App\Http\Controllers\CatatanDokumenController;
+use App\Http\Controllers\LacakStatusController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,6 +29,11 @@ Route::middleware(['auth', 'peran:staf_keuangan,admin'])->group(function () {
 Route::middleware(['auth', 'peran:staf_keuangan'])->group(function () {
     Route::put('/jadwal-bayar/{invoice}/catatan', [CatatanDokumenController::class, 'update'])
         ->name('jadwal-bayar.catatan.update');
+});
+
+Route::middleware(['auth', 'peran:pengguna_umum,staf_keuangan,admin'])->group(function () {
+    Route::get('/lacak-status', [LacakStatusController::class, 'index'])->name('lacak-status.index');
+    Route::get('/lacak-status/{purchaseRequisition}', [LacakStatusController::class, 'show'])->name('lacak-status.show');
 });
 });
 
