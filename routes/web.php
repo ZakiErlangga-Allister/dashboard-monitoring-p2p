@@ -5,6 +5,9 @@ use App\Http\Controllers\JadwalBayarController;
 use App\Http\Controllers\CatatanDokumenController;
 use App\Http\Controllers\LacakStatusController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Admin\LogAktivitasController;
+use App\Http\Controllers\Admin\PengaturanController;
+use App\Http\Controllers\Admin\PenggunaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -12,7 +15,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware('auth')
+    ->middleware(['auth', 'peran:pengguna_umum,staf_keuangan,admin'])
     ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -35,6 +38,17 @@ Route::middleware(['auth', 'peran:staf_keuangan'])->group(function () {
 Route::middleware(['auth', 'peran:pengguna_umum,staf_keuangan,admin'])->group(function () {
     Route::get('/lacak-status', [LacakStatusController::class, 'index'])->name('lacak-status.index');
     Route::get('/lacak-status/{purchaseRequisition}', [LacakStatusController::class, 'show'])->name('lacak-status.show');
+});
+
+Route::middleware(['auth', 'peran:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/log', [LogAktivitasController::class, 'index'])->name('log.index');
+
+    Route::get('/pengaturan', [PengaturanController::class, 'edit'])->name('pengaturan.edit');
+    Route::put('/pengaturan', [PengaturanController::class, 'update'])->name('pengaturan.update');
+
+    Route::get('/pengguna', [PenggunaController::class, 'index'])->name('pengguna.index');
+    Route::post('/pengguna', [PenggunaController::class, 'store'])->name('pengguna.store');
+    Route::patch('/pengguna/{user}', [PenggunaController::class, 'update'])->name('pengguna.update');
 });
 });
 

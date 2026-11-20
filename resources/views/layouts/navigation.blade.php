@@ -19,6 +19,17 @@
     Lacak status PO
 </x-nav-link>
                     @if (in_array(auth()->user()->peran, ['staf_keuangan', 'admin']))
+                    @if (auth()->user()->peran === 'admin')
+    <x-nav-link :href="route('admin.pengguna.index')" :active="request()->routeIs('admin.pengguna.*')">
+        Pengguna
+    </x-nav-link>
+    <x-nav-link :href="route('admin.pengaturan.edit')" :active="request()->routeIs('admin.pengaturan.*')">
+        Pengaturan
+    </x-nav-link>
+    <x-nav-link :href="route('admin.log.index')" :active="request()->routeIs('admin.log.*')">
+        Log aktivitas
+    </x-nav-link>
+@endif
     <x-nav-link :href="route('jadwal-bayar.index')" :active="request()->routeIs('jadwal-bayar.*')">
         Jadwal bayar
     </x-nav-link>
